@@ -28,6 +28,7 @@ cc.Class({
         score:0,
         miss:0,
         scroll:0,
+        stay:0,
         scoreLable:{
             default:null,
             type:cc.Label
@@ -50,7 +51,9 @@ cc.Class({
         this.bar.controller = this;
         cc.director.getCollisionManager().enabled=true;//开启碰撞检测
     },
-
+    changeScore:function(_value){
+        this.score=_value+10;
+    },
     start: function(){
         var self = this;
         //开始计时
@@ -98,17 +101,37 @@ cc.Class({
         var customScript = custom3.getComponent("Custom");
         var customScript = custom4.getComponent("Custom");
         var customScript = custom5.getComponent("Custom");*/
-
         customScript.controller = this;//传入controller类，方便回调
 
         //添加顾客到内存,数据初始化完成后及时添加到bar类中，防止bug
         this.bar.customIn(customScript);
         var button = custom1.getChildByName("New Button");
         var label = button.getChildByName("Label");
-        console.log(label);
+        /*console.log(label);*/
         var lc = label.getComponent("cc.Label");
-        console.log(lc);
-        lc.string =customScript.cname+ customScript.want;
+        /*onCollisionEnter: function (other, self) {
+            console.log('on collision enter');
+            if(customScript.demoEat(this.want)) {
+                cc.log("食物被吃掉");
+                this.changeScore(0);
+                setTimeout(60);
+                custom1.position = cc.p(0,0);
+                cc.log("custom out")
+            }
+            else{
+                cc.log("food return");
+            };
+        },
+        //lc.string =customScript.cname+ customScript.want;
+       /*if(customScript.onCollisionEnter()){
+           this.changeScore(0);
+            cc.log(this.score);
+            this.customOut();
+        }
+        else{
+
+
+        };*/
         //这里是move替代动画，可以替换为 animation + 事件回调的形式
         /*.runAction(cc.sequence(cc.moveBy(2, 200, 0), cc.callFunc(function () {
             //动画完成，显示对话框
@@ -130,18 +153,24 @@ cc.Class({
             lc.string = "i want eating " + customScript.want;
             button.active = true;
         }, custom2)));*/
+    },
 
+    onEat:function () {
+      cc.log("666666");
+      this.score += 10;
+      cc.log(this.score);
     },
-    changeScore:function (value) {
-        this.score += value;
+    onMiss:function () {
+      this.miss +=1;
+      alert("顾客已经走了");
     },
-    customOut:function () {
-        cc.log("顾客迟到了想吃的食物");
+    /*customOut:function () {
+        cc.log("顾客吃完食物离开了");
         this.clearCounting();//清除顾客的计时以及让顾客和食物消失
         var custom1 = cc.instantiate(this.custom1);
         custom1.parent = this.node;
         custom1.position = cc.p(0,0);
-    },
+    },*/
     update: function (dt) {
         this.scoreLable.string = this.score;
         this.scrollLable.string = this.scroll;

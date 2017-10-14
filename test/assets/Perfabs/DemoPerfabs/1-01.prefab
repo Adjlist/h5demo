@@ -327,7 +327,9 @@
     },
     "_enabled": true,
     "cname": "jinny",
-    "want": "最近身体不舒服"
+    "want": "最近身体不舒服",
+    "customscore": 0,
+    "count": 0
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -395,7 +397,9 @@
     },
     "_enabled": true,
     "cname": "jinny",
-    "want": "pear"
+    "want": "apple",
+    "customscore": 0,
+    "count": 0
   },
   {
     "__type__": "cc.PrefabInfo",
